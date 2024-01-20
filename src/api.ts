@@ -2,9 +2,6 @@ import type { Match } from './types'
 
 const url = process.env.NEXT_PUBLIC_BD_URL
 
-// para el .env cuando clone el proyecto en la otra Macbook
-// NEXT_PUBLIC_BD_URL=https://docs.google.com/spreadsheets/d/e/2PACX-1vSU-nFcPgKhqZreYTr3ZjKTo5QMlXD6cV0qgUtKdbPuL_yNaALNcsMwmJW6uuS2pBZrGZxZ-jVe--dh/pub?output=tsv
-
 // https://www.youtube.com/watch?v=bk37Kf4PT8E&ab_channel=Goncy
 // continuar en el minuto 35
 
