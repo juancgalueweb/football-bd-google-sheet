@@ -44,9 +44,9 @@ export default function RootLayout({
                 <li>
                   <Link href='/players'>Jugadores</Link>
                 </li>
-                {/* <li>
-                  <Link href='/armador'>Armador de equipos</Link>
-                </li> */}
+                <li>
+                  <Link href='/contact-me'>Contáctame</Link>
+                </li>
                 <li>
                   <ModeToggle />
                 </li>
