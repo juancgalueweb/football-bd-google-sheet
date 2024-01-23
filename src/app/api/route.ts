@@ -16,7 +16,11 @@ export async function POST(req: NextRequest) {
     if (contact === null) {
       const newContact = await Contact.create(data)
       return NextResponse.json(
-        { success: true, data: newContact },
+        {
+          success: true,
+          data: newContact,
+          message: 'Gracias por su interés, le contactaramos en breve'
+        },
         { status: 201, statusText: 'Contacto creado' }
       )
     }
@@ -27,7 +31,11 @@ export async function POST(req: NextRequest) {
       { new: true, runValidators: true }
     )
     return NextResponse.json(
-      { success: true, data: updatedContact },
+      {
+        success: true,
+        data: updatedContact,
+        message: 'Que bueno verte de vuelta, le contactaremos en breve'
+      },
       { status: 200, statusText: 'Contacto actualizado' }
     )
   } catch (error: any) {

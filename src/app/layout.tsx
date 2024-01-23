@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body
         className={cn(
           'm-auto grid min-h-screen grid-rows-[auto,1fr,auto] bg-background px-4 antialiased',
