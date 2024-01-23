@@ -12,9 +12,8 @@ import {
 import { Input } from '@/components/ui/input'
 import type { FormData } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
-import { useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
@@ -25,7 +24,35 @@ export default function ContactMe() {
   const contentType = 'application/json'
   const router = useRouter()
   const toastSuccessId = useId()
-  const { theme } = useTheme()
+  const [isResponseOk, setIsResponseOk] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+
+  useEffect(() => {
+    if (isResponseOk) {
+      toast.success('Gracias por su interés, le contactaramos en breve', {
+        onClose: () => {
+          router.push('/')
+        },
+        position: 'bottom-right',
+        autoClose: 4000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'colored',
+        toastId: toastSuccessId
+      })
+    } else if (errorMsg) {
+      toast.error(errorMsg, {
+        position: 'bottom-right',
+        autoClose: 4000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'colored',
+        toastId: toastSuccessId
+      })
+    }
+  }, [isResponseOk, errorMsg, toastSuccessId, router])
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -47,6 +74,13 @@ export default function ContactMe() {
         },
         body: JSON.stringify(values)
       })
+      const data = await response.json()
+      if (data?.success) {
+        setIsResponseOk(true)
+      } else {
+        setIsResponseOk(false)
+        setErrorMsg(data?.message as string)
+      }
       if (!response.ok) {
         throw new Error(response.status.toString())
       }
@@ -57,19 +91,6 @@ export default function ContactMe() {
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
     await postData(values)
-    form.reset()
-    toast.success('Gracias por su interés, le contactaramos en breve', {
-      onClose: () => {
-        router.push('/')
-      },
-      position: 'bottom-right',
-      autoClose: 4000,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme,
-      toastId: toastSuccessId
-    })
   }
 
   return (
