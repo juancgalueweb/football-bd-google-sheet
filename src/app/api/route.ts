@@ -1,20 +1,26 @@
 import dbConnect from '@/lib/dbConnect'
 import { mongooseValidationErrorHandler } from '@/lib/mongoose-error-handler'
 import Contact from '@/models/contact'
-import { type Contact as ContactI } from '@/types'
+import { type FormData } from '@/types'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function POST(req: NextRequest) {
   await dbConnect()
 
-  const data: ContactI = await req.json()
-  const { email, firstName, lastName, phoneNumber } = data
+  const data: FormData = await req.json()
+  const { email, firstName, lastName, phoneNumber, formMessage } = data
 
   try {
     const contact = await Contact.findOne({ email })
 
     if (contact === null) {
-      const newContact = await Contact.create(data)
+      const newContact = await Contact.create({
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        formMessages: [formMessage]
+      })
       return NextResponse.json(
         {
           success: true,
@@ -27,7 +33,10 @@ export async function POST(req: NextRequest) {
 
     const updatedContact = await Contact.findOneAndUpdate(
       { email },
-      { firstName, lastName, phoneNumber },
+      {
+        $set: { firstName, lastName, phoneNumber },
+        $push: { formMessages: formMessage }
+      },
       { new: true, runValidators: true }
     )
     return NextResponse.json(

@@ -22,6 +22,12 @@ const contactSchema = new Schema<Contact>(
       type: String,
       required: [true, 'Por favor, ingrese su número de teléfono'],
       maxlength: [15, 'El número de teléfono debe tener máximo 15 caracteres']
+    },
+    formMessages: {
+      type: [String],
+      required: [true, 'Por favor, ingrese su mensaje'],
+      minlength: [10, 'El mensaje debe tener al menos 10 caracteres'],
+      maxlength: [500, 'El mensaje debe tener máximo 500 caracteres']
     }
   },
   { timestamps: true }

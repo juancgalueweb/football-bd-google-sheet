@@ -20,6 +20,7 @@ export interface Contact extends Document {
   lastName: string
   email: string
   phoneNumber: string
+  formMessages: string[]
 }
 
 export interface FormData {
@@ -27,4 +28,5 @@ export interface FormData {
   lastName: string
   email: string
   phoneNumber: string
+  formMessage: string
 }

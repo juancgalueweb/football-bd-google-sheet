@@ -4,18 +4,23 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import useContactForm from '@/hooks/useContactForm'
+import { cn } from '@/lib/utils'
+import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
 export default function ContactMe() {
   const { form, onSubmit } = useContactForm()
+  const [characterCount, setCharacterCount] = useState(0)
 
   return (
     <div className='m-auto w-[600px]'>
@@ -92,11 +97,58 @@ export default function ContactMe() {
                     {...field}
                   />
                 </FormControl>
+                <FormDescription>
+                  Por favor, incluya el código de país, empezando con el signo +
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <FormField
+            control={form.control}
+            name='formMessage'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mensaje</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder='Escriba su mensaje aquí...'
+                    className={cn(
+                      'resize-none',
+                      { 'text-orange-500': characterCount > 450 },
+                      {
+                        'text-red-500': characterCount === 500
+                      }
+                    )}
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e)
+                      setCharacterCount(e.target.value.length)
+                    }}
+                    maxLength={500}
+                    id='formMessage'
+                  />
+                </FormControl>
+                <p
+                  className={cn(
+                    'text-xs text-right',
+                    { 'text-orange-500': characterCount > 450 },
+                    {
+                      'text-red-500': characterCount === 500
+                    }
+                  )}
+                >
+                  {characterCount}/500
+                </p>
+                <FormDescription>
+                  No te preocupes, tu mensaje es confidencial, solo lo leeré yo,
+                  siéntete libre de expresar tus dudas o comentarios que tengas.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type='submit'>Enviar formulario</Button>
         </form>
       </Form>
       <ToastContainer />

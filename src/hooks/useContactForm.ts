@@ -48,7 +48,8 @@ const useContactForm = () => {
       firstName: '',
       lastName: '',
       email: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      formMessage: ''
     }
   })
 
