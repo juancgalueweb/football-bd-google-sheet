@@ -1,4 +1,4 @@
-import dbConnect from '@/lib/dbConnect'
+import dbConnect from '@/lib/db-connect'
 import { mongooseValidationErrorHandler } from '@/lib/mongoose-error-handler'
 import Contact from '@/models/contact'
 import { type FormData } from '@/types'

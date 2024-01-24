@@ -55,7 +55,7 @@ const useContactForm = () => {
 
   const postData = async (values: FormData) => {
     try {
-      const response = await fetch('/api', {
+      const response = await fetch('/api/form-db', {
         method: 'POST',
         headers: {
           Accept: contentType,
@@ -68,6 +68,14 @@ const useContactForm = () => {
       if (data?.success) {
         setIsResponseOk(true)
         setSuccessMsg(data?.message as string)
+        await fetch('/api/send', {
+          method: 'POST',
+          headers: {
+            Accept: contentType,
+            'Content-Type': contentType
+          },
+          body: JSON.stringify(values)
+        })
       } else {
         setIsResponseOk(false)
         setErrorMsg(data?.message as string)

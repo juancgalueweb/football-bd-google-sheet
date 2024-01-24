@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import useContactForm from '@/hooks/useContactForm'
+import useContactForm from '@/hooks/use-contact-form'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
