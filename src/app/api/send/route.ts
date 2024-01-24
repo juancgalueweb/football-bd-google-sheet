@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   try {
     await resend.emails.send({
       from: 'Juan Galue Emails <form-to-puche@juancgalue-web.cl>',
-      to: ['juancgalue@icloud.com'],
+      to: ['juancgalue@icloud.com', 'juanpucheboudoir@gmail.com'],
       subject: 'Nuevo mensaje desde el formulario de contacto',
       react: EmailTemplate({
         firstName,

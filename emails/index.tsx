@@ -12,13 +12,13 @@ import {
 } from '@react-email/components'
 import { Tailwind } from '@react-email/tailwind'
 
-export const EmailTemplate: React.FC<Readonly<FormData>> = ({
+export const EmailTemplateTest = ({
   firstName,
   lastName,
   email,
   phoneNumber,
   formMessage
-}) => {
+}: FormData) => {
   return (
     <Html>
       <Head />
@@ -60,16 +60,16 @@ export const EmailTemplate: React.FC<Readonly<FormData>> = ({
             </Section>
 
             <ul>
-              <li className='mb-20' key={1}>
+              <li className='mb-20' key={3}>
                 <strong>Nombre completo:</strong> {firstName} {lastName}
               </li>
-              <li className='mb-20' key={2}>
+              <li className='mb-20' key={4}>
                 <strong>Correo electrónico:</strong> {email}
               </li>
-              <li className='mb-20' key={3}>
+              <li className='mb-20' key={5}>
                 <strong>Número de teléfono:</strong> {phoneNumber}
               </li>
-              <li className='mb-20' key={4}>
+              <li className='mb-20' key={6}>
                 <strong>Mensaje:</strong> {formMessage}
               </li>
             </ul>
@@ -95,4 +95,4 @@ export const EmailTemplate: React.FC<Readonly<FormData>> = ({
   )
 }
 
-export default EmailTemplate
+export default EmailTemplateTest
