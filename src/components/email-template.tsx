@@ -4,13 +4,13 @@ import {
   Container,
   Head,
   Heading,
+  Hr,
   Html,
   Preview,
   Row,
   Section,
   Text
 } from '@react-email/components'
-import { Tailwind } from '@react-email/tailwind'
 
 export const EmailTemplate: React.FC<Readonly<FormData>> = ({
   firstName,
@@ -23,76 +23,108 @@ export const EmailTemplate: React.FC<Readonly<FormData>> = ({
     <Html>
       <Head />
       <Preview>Te han escrito desde tu página web de Boudoir</Preview>
-      <Tailwind
-        config={{
-          theme: {
-            extend: {
-              colors: {
-                brand: '#2250f4',
-                offwhite: '#fafbfb'
-              },
-              spacing: {
-                0: '0px',
-                20: '20px',
-                45: '45px'
-              }
-            }
-          }
-        }}
-      >
-        <Body className='bg-offwhite text-base font-sans'>
-          <Container className='bg-white p-45'>
-            <Heading className='text-center my-0 leading-8'>
-              Te han escrito desde tu página web de Boudoir
-            </Heading>
 
-            <Section className='my-4'>
-              <Row>
-                <Text className='text-base'>
-                  Buenas noticias, alguien ha interactuado con tu web y puede
-                  ser un potencial cliente.
-                </Text>
+      <Body style={main}>
+        <Container style={bodyContainer}>
+          <Heading style={heading}>
+            Te han escrito desde tu página web de Boudoir
+          </Heading>
 
-                <Text className='text-base'>
-                  Aquí tienes los detalles de la persona que te ha contactado:
-                </Text>
-              </Row>
-            </Section>
+          <Section style={section}>
+            <Row>
+              <Text style={textBase}>
+                Buenas noticias, alguien ha interactuado con tu web y puede ser
+                un potencial cliente.
+              </Text>
 
-            <ul>
-              <li className='mb-20' key={1}>
-                <strong>Nombre completo:</strong> {firstName} {lastName}
-              </li>
-              <li className='mb-20' key={2}>
-                <strong>Correo electrónico:</strong> {email}
-              </li>
-              <li className='mb-20' key={3}>
-                <strong>Número de teléfono:</strong> {phoneNumber}
-              </li>
-              <li className='mb-20' key={4}>
-                <strong>Mensaje:</strong> {formMessage}
-              </li>
-            </ul>
+              <Text style={textBase}>
+                Aquí tienes los detalles de la persona que te ha contactado:
+              </Text>
+            </Row>
+          </Section>
 
-            <Section>
-              <Row>
-                <Text className='text-base'>
-                  Te deseo el mayor de los éxitos en tu próximo proyecto
-                  fotográfico.
-                </Text>
-              </Row>
-            </Section>
-          </Container>
+          <Section>
+            <Row>
+              <Text style={textBase}>
+                <strong>🙋 Nombre completo:</strong> {firstName} {lastName}
+              </Text>
+              <Text style={textBase}>
+                <strong>📧 Correo electrónico:</strong> {email}
+              </Text>
+              <Text style={textBase}>
+                <strong>☎️ Número de teléfono:</strong> {phoneNumber}
+              </Text>
+              <Text style={textBase}>
+                <strong>💬 Mensaje:</strong> {formMessage}
+              </Text>
+            </Row>
+          </Section>
 
-          <Container className='mt-20'>
-            <Text className='text-center text-gray-400 mb-45'>
-              Hecho con ❤️ por © {new Date().getFullYear()} Juan Galué
-            </Text>
-          </Container>
-        </Body>
-      </Tailwind>
+          <Section>
+            <Row>
+              <Text style={textBase}>
+                Te deseo el mayor de los éxitos en tu próximo proyecto
+                fotográfico.
+              </Text>
+            </Row>
+          </Section>
+        </Container>
+
+        <Container style={footerContainer}>
+          <Hr style={hr} />
+          <Text style={footer}>
+            Hecho con ❤️ por © {new Date().getFullYear()} Juan Galué
+          </Text>
+        </Container>
+      </Body>
     </Html>
   )
 }
 
 export default EmailTemplate
+
+const main = {
+  backgroundColor: '#fafbfb',
+  fontFamily:
+    'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  fontSize: '1rem',
+  lineHeight: '1.5rem'
+}
+
+const bodyContainer = {
+  backgroundColor: 'rgb(255 255 255)',
+  padding: '1rem'
+}
+
+const heading = {
+  textAlign: 'center' as const,
+  marginTop: '0px',
+  marginBottom: '0px',
+  lineHeight: '2rem'
+}
+
+const textBase = {
+  fontSize: '1rem',
+  lineHeight: '1.5rem'
+}
+
+const section = {
+  marginTop: '1rem',
+  marginBottom: '1rem'
+}
+
+const footerContainer = {
+  marginTop: '1rem'
+}
+
+const hr = {
+  backgroundColor: '#cccccc'
+}
+
+const footer = {
+  textAlign: 'center' as const,
+  color: '#718096',
+  marginBottom: '4.5rem',
+  fontSize: '0.75rem',
+  fontWeight: 300
+}
