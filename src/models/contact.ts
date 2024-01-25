@@ -1,3 +1,4 @@
+import { ModelMsgs } from '@/constants/model-msgs'
 import { model, models, Schema } from 'mongoose'
 import type { Contact } from '../types'
 
@@ -5,29 +6,29 @@ const contactSchema = new Schema<Contact>(
   {
     firstName: {
       type: String,
-      required: [true, 'Por favor, ingrese su primer nombre'],
-      maxlength: [30, 'El nombre debe tener máximo 30 caracteres']
+      required: [true, ModelMsgs.FIRST_NAME_REQUIRED],
+      maxlength: [30, ModelMsgs.FIRST_NAME_MAX_LENGTH]
     },
     lastName: {
       type: String,
-      required: [true, 'Por favor, ingrese su apellido'],
-      maxlength: [30, 'El apellido debe tener máximo 30 caracteres']
+      required: [true, ModelMsgs.LAST_NAME_REQUIRED],
+      maxlength: [30, ModelMsgs.LAST_NAME_MAX_LENGTH]
     },
     email: {
       type: String,
-      required: [true, 'Por favor, ingrese su correo electrónico'],
-      maxlength: [50, 'El correo electrónico debe tener máximo 50 caracteres']
+      required: [true, ModelMsgs.EMAIL_REQUIRED],
+      maxlength: [200, ModelMsgs.EMAIL_MAX_LENGTH]
     },
     phoneNumber: {
       type: String,
-      required: [true, 'Por favor, ingrese su número de teléfono'],
-      maxlength: [15, 'El número de teléfono debe tener máximo 15 caracteres']
+      required: [true, ModelMsgs.PHONE_NUMBER_REQUIRED],
+      maxlength: [15, ModelMsgs.PHONE_NUMBER_MAX_LENGTH]
     },
     formMessages: {
       type: [String],
-      required: [true, 'Por favor, ingrese su mensaje'],
-      minlength: [10, 'El mensaje debe tener al menos 10 caracteres'],
-      maxlength: [500, 'El mensaje debe tener máximo 500 caracteres']
+      required: [true, ModelMsgs.FORM_MESSAGES_REQUIRED],
+      minlength: [10, ModelMsgs.FORM_MESSAGES_MIN_LENGTH],
+      maxlength: [500, ModelMsgs.FORM_MESSAGES_MAX_LENGTH]
     }
   },
   { timestamps: true }

@@ -1,3 +1,4 @@
+import { FormDBMsgs } from '@/constants/form-db-msgs'
 import dbConnect from '@/lib/db-connect'
 import { mongooseValidationErrorHandler } from '@/lib/mongoose-error-handler'
 import Contact from '@/models/contact'
@@ -25,9 +26,9 @@ export async function POST(req: NextRequest) {
         {
           success: true,
           data: newContact,
-          message: 'Gracias por su interés, le contactaramos en breve'
+          message: FormDBMsgs.SUCCESS
         },
-        { status: 201, statusText: 'Contacto creado' }
+        { status: 201, statusText: FormDBMsgs.OK_STATUS_TEXT }
       )
     }
 
@@ -43,9 +44,9 @@ export async function POST(req: NextRequest) {
       {
         success: true,
         data: updatedContact,
-        message: 'Que bueno verte de vuelta, le contactaremos en breve'
+        message: FormDBMsgs.UPDATED
       },
-      { status: 200, statusText: 'Contacto actualizado' }
+      { status: 200, statusText: FormDBMsgs.UPDATED_STATUS_TEXT }
     )
   } catch (error: any) {
     if (error.name === 'ValidationError') {
@@ -58,7 +59,7 @@ export async function POST(req: NextRequest) {
       )
     }
     return NextResponse.json(
-      { success: false, message: error },
+      { success: false, message: FormDBMsgs.ERROR, error },
       { status: 500 }
     )
   }

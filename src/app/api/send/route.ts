@@ -1,4 +1,5 @@
 import { EmailTemplate } from '@/components/email-template'
+import { EMAIL_TO, ResendMsgs } from '@/constants/send-msgs'
 import type { FormData } from '@/types'
 import { NextResponse, type NextRequest } from 'next/server'
 import { Resend } from 'resend'
@@ -11,9 +12,9 @@ export async function POST(req: NextRequest) {
 
   try {
     await resend.emails.send({
-      from: 'Juan Galue Emails <form-to-puche@juancgalue-web.cl>',
-      to: ['juancgalue@icloud.com', 'juanpucheboudoir@gmail.com'],
-      subject: 'Nuevo mensaje desde el formulario de contacto',
+      from: ResendMsgs.EMAIL_FROM,
+      to: EMAIL_TO,
+      subject: ResendMsgs.EMAIL_SUBJECT,
       react: EmailTemplate({
         firstName,
         lastName,
@@ -26,13 +27,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Formulario enviado correctamente al e-mail de Juan Puche'
+        message: ResendMsgs.SUCCESS,
       },
-      { status: 200, statusText: 'Formulario de contacto enviado al e-mail' }
+      { status: 200, statusText: ResendMsgs.OK_STATUS_TEXT }
     )
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: error },
+      { success: false, message: ResendMsgs.ERROR, error },
       { status: 500 }
     )
   }
