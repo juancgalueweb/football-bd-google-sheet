@@ -14,12 +14,14 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import useContactForm from '@/hooks/use-contact-form'
 import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
 export default function ContactMe() {
-  const { form, onSubmit } = useContactForm()
+  const pathname = usePathname()
+  const { form, onSubmit } = useContactForm({ pathname })
   const [characterCount, setCharacterCount] = useState(0)
 
   return (

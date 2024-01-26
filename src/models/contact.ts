@@ -29,6 +29,11 @@ const contactSchema = new Schema<Contact>(
       required: [true, ModelMsgs.FORM_MESSAGES_REQUIRED],
       minlength: [10, ModelMsgs.FORM_MESSAGES_MIN_LENGTH],
       maxlength: [500, ModelMsgs.FORM_MESSAGES_MAX_LENGTH]
+    },
+    routes: {
+      type: Map,
+      of: Number,
+      default: new Map<string, number>()
     }
   },
   { timestamps: true }

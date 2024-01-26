@@ -7,7 +7,11 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import type * as z from 'zod'
 
-const useContactForm = () => {
+interface Props {
+  pathname: string
+}
+
+const useContactForm = ({ pathname }: Props) => {
   const contentType = 'application/json'
   const router = useRouter()
   const toastSuccessId = useId()
@@ -53,6 +57,24 @@ const useContactForm = () => {
     }
   })
 
+  const updateRouteStats = async () => {
+    try {
+      const response = await fetch('/api/routes-stats', {
+        method: 'POST',
+        headers: {
+          Accept: contentType,
+          'Content-Type': contentType
+        },
+        body: JSON.stringify({ pathname })
+      })
+      if (!response.ok) {
+        throw new Error(response.status.toString())
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const postData = async (values: FormData) => {
     try {
       const response = await fetch('/api/form-db', {
@@ -61,21 +83,21 @@ const useContactForm = () => {
           Accept: contentType,
           'Content-Type': contentType
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify({ ...values, pathname })
       })
 
       const data = await response.json()
       if (data?.success) {
         setIsResponseOk(true)
         setSuccessMsg(data?.message as string)
-        await fetch('/api/send', {
-          method: 'POST',
-          headers: {
-            Accept: contentType,
-            'Content-Type': contentType
-          },
-          body: JSON.stringify(values)
-        })
+        // await fetch('/api/send', {
+        //   method: 'POST',
+        //   headers: {
+        //     Accept: contentType,
+        //     'Content-Type': contentType
+        //   },
+        //   body: JSON.stringify({ ...values, pathname })
+        // })
       } else {
         setIsResponseOk(false)
         setErrorMsg(data?.message as string)
@@ -90,6 +112,7 @@ const useContactForm = () => {
 
   async function onSubmit(values: z.infer<typeof FormSchema>) {
     await postData(values)
+    await updateRouteStats()
   }
 
   return {

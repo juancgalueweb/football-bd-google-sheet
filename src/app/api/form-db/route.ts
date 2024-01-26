@@ -2,14 +2,15 @@ import { FormDBMsgs } from '@/constants/form-db-msgs'
 import dbConnect from '@/lib/db-connect'
 import { mongooseValidationErrorHandler } from '@/lib/mongoose-error-handler'
 import Contact from '@/models/contact'
-import { type FormData } from '@/types'
+import { type SendData } from '@/types'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function POST(req: NextRequest) {
   await dbConnect()
 
-  const data: FormData = await req.json()
-  const { email, firstName, lastName, phoneNumber, formMessage } = data
+  const data: SendData = await req.json()
+  const { email, firstName, lastName, phoneNumber, formMessage, pathname } =
+    data
 
   try {
     const contact = await Contact.findOne({ email })
@@ -20,7 +21,8 @@ export async function POST(req: NextRequest) {
         lastName,
         email,
         phoneNumber,
-        formMessages: [formMessage]
+        formMessages: [formMessage],
+        routes: new Map([[pathname, 1]])
       })
       return NextResponse.json(
         {
@@ -36,7 +38,8 @@ export async function POST(req: NextRequest) {
       { email },
       {
         $set: { firstName, lastName, phoneNumber },
-        $push: { formMessages: formMessage }
+        $push: { formMessages: formMessage },
+        $inc: { [`routes.${pathname}`]: 1 }
       },
       { new: true, runValidators: true }
     )

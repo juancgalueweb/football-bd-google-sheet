@@ -1,4 +1,4 @@
-import { type FormData } from '@/types'
+import type { SendData } from '@/types'
 import {
   Body,
   Container,
@@ -12,12 +12,13 @@ import {
   Text
 } from '@react-email/components'
 
-export const EmailTemplate: React.FC<Readonly<FormData>> = ({
+export const EmailTemplate: React.FC<Readonly<SendData>> = ({
   firstName,
   lastName,
   email,
   phoneNumber,
-  formMessage
+  formMessage,
+  pathname
 }) => {
   return (
     <Html>
@@ -56,6 +57,9 @@ export const EmailTemplate: React.FC<Readonly<FormData>> = ({
               </Text>
               <Text style={textBase}>
                 <strong>💬 Mensaje:</strong> {formMessage}
+              </Text>
+              <Text style={textBase}>
+                <strong>❓ Ruta:</strong> {pathname}
               </Text>
             </Row>
           </Section>

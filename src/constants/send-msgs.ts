@@ -6,4 +6,5 @@ export enum ResendMsgs {
   EMAIL_FROM = 'Juan Galue Emails <form-to-puche@juancgalue-web.cl>'
 }
 
-export const EMAIL_TO = ['juancgalue@icloud.com', 'juanpucheboudoir@gmail.com']
+export const EMAIL_TO = ['juancgalue@icloud.com']
+// 'juanpucheboudoir@gmail.com'

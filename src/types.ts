@@ -1,5 +1,20 @@
 import type { Document } from 'mongoose'
 
+// Interfaces that extends Document from mongoose
+export interface Contact extends Document {
+  firstName: string
+  lastName: string
+  email: string
+  phoneNumber: string
+  formMessages: string[]
+  routes: Map<string, number>
+}
+
+export interface IRoutesStats extends Document {
+  routesStats: Map<string, number>
+}
+
+// Interfaces that does not extends Document from mongoose
 export interface Match {
   id: string
   date: string
@@ -15,18 +30,14 @@ export interface Player {
   score: number
 }
 
-export interface Contact extends Document {
-  firstName: string
-  lastName: string
-  email: string
-  phoneNumber: string
-  formMessages: string[]
-}
-
 export interface FormData {
   firstName: string
   lastName: string
   email: string
   phoneNumber: string
   formMessage: string
+}
+
+export interface SendData extends FormData {
+  pathname: string
 }
