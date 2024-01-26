@@ -1,5 +1,5 @@
 import { FormSchema } from '@/app/schema/form-zod-schema'
-import type { FormData } from '@/types'
+import type { ContactFormProps, FormData } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useEffect, useId, useState } from 'react'
@@ -7,11 +7,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import type * as z from 'zod'
 
-interface Props {
-  pathname: string
-}
-
-const useContactForm = ({ pathname }: Props) => {
+const useContactForm = ({ pathname }: ContactFormProps) => {
   const contentType = 'application/json'
   const router = useRouter()
   const toastSuccessId = useId()

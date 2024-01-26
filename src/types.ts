@@ -41,3 +41,7 @@ export interface FormData {
 export interface SendData extends FormData {
   pathname: string
 }
+
+export interface ContactFormProps {
+  pathname: string
+}

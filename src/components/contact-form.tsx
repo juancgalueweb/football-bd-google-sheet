@@ -17,10 +17,11 @@ import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
-export const ContactForm = () => {
+export const ContactForm: React.FC = () => {
   const pathname = usePathname()
   const { form, onSubmit } = useContactForm({ pathname })
   const [characterCount, setCharacterCount] = useState(0)
+
   return (
     <div className='m-auto w-[600px]'>
       <h1 className='h1 text-center text-xl m-4 font-black'>
