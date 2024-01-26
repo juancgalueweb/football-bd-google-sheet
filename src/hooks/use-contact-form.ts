@@ -90,14 +90,14 @@ const useContactForm = ({ pathname }: Props) => {
       if (data?.success) {
         setIsResponseOk(true)
         setSuccessMsg(data?.message as string)
-        // await fetch('/api/send', {
-        //   method: 'POST',
-        //   headers: {
-        //     Accept: contentType,
-        //     'Content-Type': contentType
-        //   },
-        //   body: JSON.stringify({ ...values, pathname })
-        // })
+        await fetch('/api/send', {
+          method: 'POST',
+          headers: {
+            Accept: contentType,
+            'Content-Type': contentType
+          },
+          body: JSON.stringify({ ...values, pathname })
+        })
       } else {
         setIsResponseOk(false)
         setErrorMsg(data?.message as string)

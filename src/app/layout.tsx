@@ -48,6 +48,9 @@ export default function RootLayout({
                   <Link href='/contact-me'>Contáctame</Link>
                 </li>
                 <li>
+                  <Link href='/about-me'>Acerca de mí</Link>
+                </li>
+                <li>
                   <ModeToggle />
                 </li>
               </ul>

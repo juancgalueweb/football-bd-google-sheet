@@ -85,8 +85,6 @@ export const EmailTemplate: React.FC<Readonly<SendData>> = ({
   )
 }
 
-export default EmailTemplate
-
 const main = {
   backgroundColor: '#fafbfb',
   fontFamily:
